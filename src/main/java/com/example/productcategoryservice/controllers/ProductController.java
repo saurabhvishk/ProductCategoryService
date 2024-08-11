@@ -30,20 +30,24 @@ public class ProductController {
 
     @GetMapping("{id}")
     public ProductDto getProduct(@PathVariable Long id){
-        throw new UnsupportedOperationException("Not supported yet.");
-//        Product product = new Product();
-//        product.setId(id);
-//        return product;
+        ProductDto response = new ProductDto();
+        Product product = productService.getProductById(id);
+        response = getProductDto(product);
+        return response;
     }
 
     @PostMapping
-    public ProductDto createProduct(@RequestBody Product product){
-        throw new UnsupportedOperationException("Not supported yet.");
+    public ProductDto createProduct(@RequestBody ProductDto productDto){
+        Product input = getProduct(productDto);
+        Product product = productService.addProduct(input);
+        return getProductDto(product);
     }
 
     @PutMapping("{id}")
-    public ProductDto updateProduct(@RequestBody Product product,@PathVariable Long id){
-        throw new UnsupportedOperationException("Not supported yet.");
+    public ProductDto updateProduct(@PathVariable Long id, @RequestBody ProductDto productDto){
+        Product input = getProduct(productDto);
+        Product product = productService.updateProduct(input,id);
+        return getProductDto(product);
     }
 
     private Product getProduct(ProductDto productDto) {
