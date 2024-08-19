@@ -15,8 +15,12 @@ import org.springframework.web.client.RestTemplate;
 @Component
 public class FakeStoreAppClient {
 
+    private final RestTemplateBuilder restTemplateBuilder;
+
     @Autowired
-    private RestTemplateBuilder restTemplateBuilder;
+    FakeStoreAppClient(RestTemplateBuilder restTemplateBuilder) {
+        this.restTemplateBuilder = restTemplateBuilder;
+    }
 
     public <T> ResponseEntity<T> requestForEntity(String url, HttpMethod httpMethod, @Nullable Object request,
                                                   Class<T> responseType,

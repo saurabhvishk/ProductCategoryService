@@ -15,8 +15,12 @@ import java.util.List;
 @RequestMapping("/products")
 public class ProductController {
 
+    private final IProductService productService;
+
     @Autowired
-    private IProductService productService;
+    ProductController(IProductService productService){
+        this.productService = productService;
+    }
 
     @GetMapping
     public List<ProductDto> getAllProducts(){
@@ -52,12 +56,14 @@ public class ProductController {
 
     private Product getProduct(ProductDto productDto) {
         Product product = new Product();
+        product.setId(productDto.getId());
         product.setName(productDto.getName());
         product.setPrice(productDto.getPrice());
         product.setImageUrl(productDto.getImageUrl());
         product.setDescription(productDto.getDescription());
         if(productDto.getCategory() != null) {
             Category category = new Category();
+            category.setId(productDto.getCategory().getId());
             category.setName(productDto.getCategory().getName());
             product.setCategory(category);
         }

@@ -21,11 +21,12 @@ import java.util.List;
 @Service
 public class FakeStoreProductService implements IProductService {
 
-    @Autowired
-    private RestTemplateBuilder restTemplateBuilder;
+    private final FakeStoreAppClient fakeStoreAppClient;
 
     @Autowired
-    private FakeStoreAppClient fakeStoreAppClient;
+    FakeStoreProductService(FakeStoreAppClient fakeStoreAppClient) {
+        this.fakeStoreAppClient = fakeStoreAppClient;
+    }
 
     @Override
     public List<Product> getAllProducts() {
